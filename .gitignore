@@ -1,0 +1,77 @@
+# General
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.so
+.DS_Store
+Thumbs.db
+
+# Virtual environment
+*.venv
+
+# Django
+*.log
+local_settings.py
+media/
+staticfiles/
+
+# Migrations (optional, but usually tracked)
+**/migrations/*.py
+!**/migrations/__init__.py
+
+# Database and caches
+*.sqlite3
+db.sqlite3
+*.db
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# JetBrains
+*.iml
+
+# Node.js (if applicable)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Celery
+celerybeat-schedule
+
+# Gunicorn
+*.pid
+
+# Coverage reports
+htmlcov/
+.coverage
+*.cover
+
+# Pipenv
+Pipfile.lock
+
+# Docker
+*.tar
+
+# Redis Queue
+rq/
+
+# Ignore compiled translations
+locale/*/LC_MESSAGES/*.mo
+
+# Ignore pytest cache
+.pytest_cache/
+
+# Ignore mypy cache
+.mypy_cache/
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore logs and temp files
+logs/
+*.out
+*.err
