@@ -39,7 +39,7 @@ INSTALLED_APPS = [
 
 
     'rest_framework',
-    'LibraryApi.books.apps.BooksConfig'
+    'libraryApi.books.apps.BooksConfig'
 ]
 
 MIDDLEWARE = [
@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'LibraryApi.urls'
+ROOT_URLCONF = 'libraryApi.urls'
 
 TEMPLATES = [
     {
@@ -71,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'LibraryApi.wsgi.application'
+WSGI_APPLICATION = 'libraryApi.wsgi.application'
 
 
 # Database
