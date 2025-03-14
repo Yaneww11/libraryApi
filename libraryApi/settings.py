@@ -31,16 +31,35 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "unfold",  # before django.contrib.admin
+    "unfold.contrib.filters",  # optional, if special filters are needed
+    "unfold.contrib.forms",  # optional, if special form elements are needed
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'libraryApi.books.apps.BooksConfig',
 
-
-    'rest_framework',
-    'libraryApi.books.apps.BooksConfig'
+    'rest_framework',  # pip install djangorestframework
+    'drf_spectacular',  # for swagger
+    'corsheaders',  # pip install django-cors-headers
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ], # Optional: removes the rest_framework visualization tool
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Library',
+    'DESCRIPTION': 'The best rest project',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

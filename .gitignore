@@ -16,10 +16,6 @@ local_settings.py
 media/
 staticfiles/
 
-# Migrations (optional, but usually tracked)
-**/migrations/*.py
-!**/migrations/__init__.py
-
 # Database and caches
 *.sqlite3
 db.sqlite3
