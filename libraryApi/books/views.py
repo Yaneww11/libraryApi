@@ -7,7 +7,10 @@ from libraryApi.books.models import Book
 from libraryApi.books.serializers import BookSerializer
 
 
-# Create your views here.
+@extend_schema(
+    request=BookSerializer,
+    responses={201: BookSerializer, 400: BookSerializer}
+)
 class ListBookView(APIView):
     def get(self, request):
         book = Book.objects.all()
