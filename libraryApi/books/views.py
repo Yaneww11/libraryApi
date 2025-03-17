@@ -1,28 +1,24 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, ListCreateAPIView, \
+    RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import render
-from libraryApi.books.models import Book
-from libraryApi.books.serializers import BookSerializer
+from rest_framework.viewsets import ModelViewSet
+
+from libraryApi.books.models import Book, Publisher
+from libraryApi.books.serializers import BookSerializer, PublisherHyperlinkedSerializer, PublisherSerializer, \
+    SimpleBookSerializer
 
 
-@extend_schema(
-    request=BookSerializer,
-    responses={201: BookSerializer, 400: BookSerializer}
-)
-class ListBookView(APIView):
-    def get(self, request):
-        book = Book.objects.all()
-        serializer = BookSerializer(book, many=True)
-        return Response({"book":serializer.data})
-
-    def post(self, request):
-        serializer = BookSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class ListBookView(ListCreateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
 @extend_schema(
     request=BookSerializer,
@@ -56,5 +52,20 @@ class DetailBookView(APIView):
         book.delete()
         return Response(status=status.HTTP_200_OK)
 
+
+# class DetailBookView(RetrieveUpdateDestroyAPIView):
+#     queryset = Book.objects.all()
+#     serializer_class = SimpleBookSerializer
+
 def demo(request):
     return render(request, 'demo.html')
+
+
+class PublisherViewSet(ModelViewSet):
+    queryset = Publisher.objects.all()
+    serializer_class = PublisherSerializer
+
+
+class PublisherHyperLinkedView(ListAPIView):
+    queryset = Publisher.objects.all()
+    serializer_class = PublisherHyperlinkedSerializer
