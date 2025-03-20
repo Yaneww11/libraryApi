@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+from datetime import timedelta
 from pathlib import Path
 
 import libraryApi.accounts.apps
@@ -49,13 +49,26 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'drf_spectacular',  # for swagger
     'corsheaders',  # pip install django-cors-headers
+    'rest_framework_simplejwt', # pip install djangorestframework-simplejwt
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ], default is AllowAny, but if in more views we need to be authenticated, we can set it here
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
     ], # Optional: removes the rest_framework visualization tool
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication'
+    ],
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5), # Usually 5, 10, 15 minutes
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=2), # Usually 1 or 2 weeks
 }
 
 SPECTACULAR_SETTINGS = {
